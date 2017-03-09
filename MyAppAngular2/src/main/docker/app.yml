@@ -1,0 +1,19 @@
+version: '2'
+services:
+    myappangular2-app:
+        image: myappangular2
+        environment:
+            - SPRING_PROFILES_ACTIVE=prod,swagger
+            - SPRING_DATASOURCE_URL=jdbc:mysql://myappangular2-mysql:3306/myappangular2?useUnicode=true&characterEncoding=utf8&useSSL=false
+            - JHIPSTER_SLEEP=10 # gives time for the database to boot before the application
+            - SPRING_DATA_ELASTICSEARCH_CLUSTER_NODES=myappangular2-elasticsearch:9300
+        ports:
+            - 8080:8080
+    myappangular2-mysql:
+        extends:
+            file: mysql.yml
+            service: myappangular2-mysql
+    myappangular2-elasticsearch:
+        extends:
+            file: elasticsearch.yml
+            service: myappangular2-elasticsearch
